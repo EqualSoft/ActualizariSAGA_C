@@ -13,7 +13,11 @@ def check_new_version():
     response = requests.get(url)
     if response.status_code == 200:
         html = response.text
-        latest_version = html.split("Versiune: ")[1].split(" ")[0]
+        if "ver " in html:
+            latest_version = html.split("ver ")[1].split(" ")[0]
+        else:
+            print("Textul 'Versiune:' nu a fost găsit în pagina web.")
+            return
     else:
         print("Eroare la obținerea versiunii de pe site-ul SAGA")
         return
